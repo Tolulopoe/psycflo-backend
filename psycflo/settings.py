@@ -26,9 +26,6 @@ SECRET_KEY = 'django-insecure-)+qz51$w(5_h1j^p++^1e!n4x#=m+f$1ojdnm%73gcsz(&dqs)
 DEBUG = True
 
 
-import dj_database_url
-import os
-
 # ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ['*']
 
@@ -110,14 +107,14 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
     # }
 # }
     # Add these at the top of your settings.py
-import os
-from dotenv import load_dotenv
-from urllib.parse import urlparse
+# import os
+# from dotenv import load_dotenv
+# from urllib.parse import urlparse
 
-load_dotenv()
+# load_dotenv()
 
 # Replace the DATABASES section of your settings.py with this
-tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
+# tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
 
 # DATABASES = {
     # 'default': {
@@ -128,6 +125,10 @@ tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
     #     'HOST': tmpPostgres.hostname,
     #     'PORT': 5432,
     # }
+
+import dj_database_url
+import os
+
 DATABASES = {
     'default': dj_database_url.config(conn_max_age=600)
 }
@@ -175,6 +176,13 @@ STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+
+# Optional if using whitenoise
+MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

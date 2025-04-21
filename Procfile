@@ -1,1 +1,1 @@
-web: gunicorn Psycflo.wsgi
+web: gunicorn psycflo.wsgi
